@@ -28,7 +28,7 @@ function Twitter(){
         mongo.connect(function(){
             mongo.save(data);
             console.log(data);
-            mongo.close();
+//            mongo.close();
         });
     };
 }

@@ -8,13 +8,20 @@ function DataTxtClRunner()
     var txtconfig = JSON.parse(fs.readFileSync('./config/datatxt.json'));
 
     // Get stories from mongo
-    // var entries = mongo.find({sentiment: {$exists: true}, datatxt_cl: {$exists: false}, datatxt_cl_processing {$exists: false}})
+    var entries = mongo.find({sentiment: {$exists: true}, datatxt_cl: {$exists: false}, datatxt_cl_processing {$exists: false}}, DataTxtClRunnerCallack);
+}
+
+function DataTxtClRunnerCallback(entries)
+{
+    var len = entries.length;
 
     // Iterate the stories
-    entries.foreach(function(story) {
+    for (var i = 0; i < len; i++) {
+        story = entries[i];
+
         // Mark story as processing
         story.datatxt_cl_processing = true;
-        // mongo.save(story)
+        mongo.save(story)
 
         // Set up some URL call parameters
         var options = {
@@ -40,7 +47,7 @@ function DataTxtClRunner()
                 story.datatxt_cl_processing = false;
 
                 // Save story to mongo
-                // mongo.save(story)
+                mongo.save(story)
             });
         }).end();
     });

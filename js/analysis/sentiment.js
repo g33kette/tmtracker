@@ -11,17 +11,20 @@ function TMSentimentRunner()
 
 function TMSentimentHandleStory(entries)
 {
-    var len = entries.length;
-    if (len > 0) {
-        // Iterate the stories
-        for (var i = 0; i < len; i++) {
-            story = entries[i];
+    console.log(entries);
+    if (entries != null) {
+        var len = entries.length;
+        if (len > 0) {
+            // Iterate the stories
+            for (var i = 0; i < len; i++) {
+                story = entries[i];
 
-            // Add sentiment
-            story.sentiment = sentiment(story.text)
+                // Add sentiment
+                story.sentiment = sentiment(story.text)
 
-            // Save story to mongo
-            mongo.save(story)
+                // Save story to mongo
+                mongo.save(story)
+            }
         }
     }
 
