@@ -65,9 +65,9 @@ function AlerterRunnerEmergencyCallback(data)
 
 function AlerterRunnerAverageCallback(data)
 {
-    if (data.avgScore > 0) {
+    var txtconfig = JSON.parse(fs.readFileSync('./config/alerter.json'));
+    if (data[0].avgScore < txtconfig.low_average_threshold) {
         console.log("SENDING SMS");
-        var txtconfig = JSON.parse(fs.readFileSync('./config/alerter.json'));
 
         var query_string = 'To='+txtconfig.recipient+'&From='+txtconfig.sender+'&Body=';
         query_string += 'Your average feedback falls below the low score threshold.';
