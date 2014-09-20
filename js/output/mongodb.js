@@ -26,7 +26,7 @@ function MongoDB()
         {
             self.collection.count(function(err, count)
             {
-                console.log(self.format("collection count = %s", count));
+                console.log(self.format("inserted, collection count now %s", count));
             });
         });
     };
@@ -36,7 +36,6 @@ function MongoDB()
         if(!self.collection) throw "Not yet connected";
         self.collection.find(obj).toArray(function(err, results)
         {
-            console.log('got results:', results);
             cb(results);
         });
     };
