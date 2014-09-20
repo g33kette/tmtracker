@@ -13,9 +13,9 @@ function TMSentimentRunner()
 
         // Save story to mongo
         // mongo.save(story)
-    }
+    });
 
     // Wait for 100ms then run again
-    setTimeout(TMSentimentRunner, 100);
+    //setTimeout(TMSentimentRunner, 100);
 }
-setTimeout(TMSentimentRunner, 100);
+//setTimeout(TMSentimentRunner, 100);
