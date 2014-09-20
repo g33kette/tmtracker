@@ -45,8 +45,9 @@ function MongoDB()
     {
         this.db.close();
     };
+ 
 }
-module.exports = MongoDB;
+module.exports = new MongoDB();
 
 /*
 var mongoTest = new MONGODB();
