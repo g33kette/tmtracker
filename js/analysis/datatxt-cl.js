@@ -1,7 +1,7 @@
 // Classification (datatxt-CL) code lives in here
 var fs = require('fs');
 
-
+/*
 function DataTxtClRunner()
 {
     // Load in config for datatxt
@@ -49,3 +49,4 @@ function DataTxtClRunner()
     setTimeout(DataTxtClRunner, 100);
 }
 setTimeout(DataTxtClRunner, 100);
+*/
