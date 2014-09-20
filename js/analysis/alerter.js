@@ -65,8 +65,40 @@ function AlerterRunnerEmergencyCallback(data)
 
 function AlerterRunnerAverageCallback(data)
 {
-    var txtconfig = JSON.parse(fs.readFileSync('./config/alerter.json'));
+    if (data.avgScore > 0) {
+        console.log("SENDING SMS");
+        var txtconfig = JSON.parse(fs.readFileSync('./config/alerter.json'));
 
-    // Send an SMS out here
-    console.log(data);
+        var query_string = 'To='+txtconfig.recipient+'&From='+txtconfig.sender+'&Body=';
+        query_string += 'Your average feedback falls below the low score threshold.';
+
+        // Set up some URL call parameters
+        var options = {
+            host: 'api.twilio.com',
+            path: '/2010-04-01/Accounts/'+txtconfig.twilio_account+'/Messages.json',
+            auth: txtconfig.twilio_account + ':' + txtconfig.twilio_secret,
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+                'Content-Length': query_string.length
+            }           
+        };
+
+        // Send the response to the classification server
+        var post_req = http.request(options, function(res) {
+            var str = '';
+
+            // Handle chunks of data coming back
+            res.on('data', function (chunk) {
+                str += chunk;
+            });
+
+            // Handle when we have all data back
+            res.on('end', function() {
+                console.log(str);
+            });
+        });
+        post_req.write(query_string);
+        post_req.end();
+    }
 }
