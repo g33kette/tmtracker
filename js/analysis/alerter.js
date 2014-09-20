@@ -18,8 +18,9 @@ function AlerterRunner()
 
 function AlerterRunnerEmergencyCallback(data)
 {
-    console.log("SENDING SMS");
-    var txtconfig = JSON.parse(fs.readFileSync('./config/alerter.json'));
+    if (data.length > 0) {
+        console.log("SENDING SMS");
+        var txtconfig = JSON.parse(fs.readFileSync('./config/alerter.json'));
 
         var query_string = 'To='+txtconfig.recipient+'&From='+txtconfig.sender+'&Body=';
         query_string += 'EMERGENCY! You have got some feedback which falls below the low score threshold.';
@@ -52,6 +53,7 @@ function AlerterRunnerEmergencyCallback(data)
         });
         post_req.write(query_string);
         post_req.end();
+    }
 }
 
 function AlerterRunnerTrendingCallback()
