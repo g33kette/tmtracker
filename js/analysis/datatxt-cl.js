@@ -1,18 +1,21 @@
 // Classification (datatxt-CL) code lives in here
 var fs = require('fs');
+var http = require('http');
+var mongo = require('../output/mongodb.js');
+mongo.connect(function(){DataTxtClRunner();});
 
-/*
+
 function DataTxtClRunner()
 {
-    // Load in config for datatxt
-    var txtconfig = JSON.parse(fs.readFileSync('./config/datatxt.json'));
-
     // Get stories from mongo
-    var entries = mongo.find({sentiment: {$exists: true}, datatxt_cl: {$exists: false}, datatxt_cl_processing {$exists: false}}, DataTxtClRunnerCallack);
+    mongo.find({sentiment: {$exists: true}, datatxt_cl: {$exists: false}, datatxt_cl_processing: {$exists: false}}, DataTxtClRunnerCallback);
 }
 
 function DataTxtClRunnerCallback(entries)
 {
+    // Load in config for datatxt
+    var txtconfig = JSON.parse(fs.readFileSync('./config/datatxt.json'));
+
     var len = entries.length;
 
     // Iterate the stories
@@ -26,14 +29,11 @@ function DataTxtClRunnerCallback(entries)
         // Set up some URL call parameters
         var options = {
             host: txtconfig.url,
-            port: 80,
-            path: '/datatxt/cl/v1?app_id=' + txtconfig.app_id + '&app_key=' + txtconfig.app_key + '&text=' + encodeURIComponent(story.text),
-            method: 'POST'
+            path: '/datatxt/cl/v1?$app_id=' + txtconfig.app_id + '&$app_key=' + txtconfig.app_key + '&model=648b9f89-b869-4639-9386-5493bfb7a84d&text=' + encodeURIComponent(story.text)
         };
 
         // Send the response to the classification server
         http.request(options, function(res) {
-            res.setEncoding('utf8');
             var str = '';
 
             // Handle chunks of data coming back
@@ -50,10 +50,9 @@ function DataTxtClRunnerCallback(entries)
                 mongo.save(story)
             });
         }).end();
-    });
+    }
 
     // Wait for 100ms then run again
     setTimeout(DataTxtClRunner, 100);
 }
-setTimeout(DataTxtClRunner, 100);
-*/
+
