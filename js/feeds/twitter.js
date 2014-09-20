@@ -13,33 +13,53 @@ function Twitter(){
     this.stream = function(filter){
         twit.stream('statuses/filter', {'track' : filter}, function(stream) {
             stream.on('data', function(data) {
-                save(data);
+                process(data);
                 //stream.destroy();
             });
         });
 
     };
 
-    var save = function(tweet){
+    var save = function(data){
+        mongo.connect(function(){
+            mongo.save(data);
+            console.log('twitter ' + data._id);
+        });
+    };
+
+    var process = function(tweet){
         //console.log(tweet.retweeted_status);
         if (typeof tweet.retweeted_status == 'undefined') {
-            var data = {
+            save({
                 'url': 'https://twitter.com/' + tweet.user.screen_name + '/status/' + tweet.id_str,
                 'text': tweet.text,
-                'timestamp_ms': tweet.timestamp_ms
-            };
-            mongo.connect(function(){
-                mongo.save(data);
-                console.log(data);
-//            mongo.close();
+                'timestamp_ms': tweet.timestamp_ms,
+                'twitter_id': tweet.id,
+                'source': 'twitter',
+                'twitter_retweet_count': tweet.retweet_count
             });
         } else {
+            mongo.connect(function() {
+                mongo.find({'source': 'twitter', 'twitter_id': tweet.retweeted_status.id}, function(data){
+                        if (typeof data != 'object' || !data.length) {
+                            tweet = tweet.retweeted_status;
+                            save({
+                                'url': 'https://twitter.com/' + tweet.user.screen_name + '/status/' + tweet.id_str,
+                                'text': tweet.text,
+                                'timestamp_ms': tweet.timestamp_ms,
+                                'twitter_id': tweet.id,
+                                'source': 'twitter',
+                                'twitter_retweet_count': tweet.retweet_count
+                            });
+                        } else {
+                            data[0].twitter_retweet_count = tweet.retweeted_status.retweet_count;
+                            save(data[0]);
+                        }
+                }, { limit : 1 });
 
+            });
         }
-//        mongo.connect(function(){
-//            mongo.save(data);
-//            console.log(data);
-////            mongo.close();
-//        });
+
+
     };
 }
