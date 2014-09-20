@@ -1,6 +1,5 @@
 
-
-function MONGODB()
+function MongoDB()
 {
     var self = this;
     this.format = require("util").format;
@@ -37,6 +36,7 @@ function MONGODB()
         if(!self.collection) throw "Not yet connected";
         self.collection.find(obj).toArray(function(err, results)
         {
+            console.log('got results:', results);
             cb(results);
         });
     };
@@ -46,6 +46,7 @@ function MONGODB()
         this.db.close();
     };
 }
+module.exports = MongoDB;
 
 /*
 var mongoTest = new MONGODB();
