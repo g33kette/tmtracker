@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "twitter": "~0.2.12"
+  }
+}
