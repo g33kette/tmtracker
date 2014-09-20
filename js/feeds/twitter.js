@@ -2,22 +2,38 @@
 //call twitterObj.stream(string) to search when ready
 
 function Twitter(){
+    var self = this;
     var fs = require('fs'),
         util = require('util'),
         twitter = require('twitter'),
         config = JSON.parse(fs.readFileSync('config/twitter.json')),
         mongo = require('../output/mongodb.js');
 
+
     var twit = new twitter(config);
 
-    this.stream = function(filter){
+    this.stream = function(filter)
+    {
+        this.destroy();
+
         twit.stream('statuses/filter', {'track' : filter}, function(stream) {
             stream.on('data', function(data) {
                 process(data);
-                //stream.destroy();
             });
+            stream.on('error', function(data)
+            {
+                //needed to handle any errors and not fatally kill node
+            });
+            self.twitterStream = stream;
         });
+    };
 
+    this.destroy = function()
+    {
+        if(this.twitterStream)
+        {
+            this.twitterStream.destroy();
+        }
     };
 
     var save = function(data){
