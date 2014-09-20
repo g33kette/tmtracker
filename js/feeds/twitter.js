@@ -23,7 +23,8 @@ function Twitter(){
     var save = function(tweet){
         var data = {
             'url' : 'https://twitter.com/'+tweet.user.screen_name+'/status/'+tweet.id_str,
-            'text' : tweet.text
+            'text' : tweet.text,
+            'timestamp_ms' : tweet.timestamp_ms
         };
         mongo.connect(function(){
             mongo.save(data);

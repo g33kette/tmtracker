@@ -11,7 +11,6 @@ function TMSentimentRunner()
 
 function TMSentimentHandleStory(entries)
 {
-    console.log(entries);
     if (entries != null) {
         var len = entries.length;
         if (len > 0) {
@@ -20,7 +19,7 @@ function TMSentimentHandleStory(entries)
                 story = entries[i];
 
                 // Add sentiment
-                story.sentiment = sentiment(story.text)
+                story.sentiment = sentiment(story.text);
 
                 // Save story to mongo
                 mongo.save(story)
