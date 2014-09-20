@@ -1,7 +1,6 @@
 {
   "url": "https://github.com/g33kette/tmtracker",
   "name": "tmtracker",
-  "version": "0.1",
   "dependencies": {
     "twitter": "~0.2.12",
     "mongodb": "~1.4.12",
