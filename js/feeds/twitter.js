@@ -21,15 +21,25 @@ function Twitter(){
     };
 
     var save = function(tweet){
-        var data = {
-            'url' : 'https://twitter.com/'+tweet.user.screen_name+'/status/'+tweet.id_str,
-            'text' : tweet.text,
-            'timestamp_ms' : tweet.timestamp_ms
-        };
-        mongo.connect(function(){
-            mongo.save(data);
-            console.log(data);
+        //console.log(tweet.retweeted_status);
+        if (typeof tweet.retweeted_status == 'undefined') {
+            var data = {
+                'url': 'https://twitter.com/' + tweet.user.screen_name + '/status/' + tweet.id_str,
+                'text': tweet.text,
+                'timestamp_ms': tweet.timestamp_ms
+            };
+            mongo.connect(function(){
+                mongo.save(data);
+                console.log(data);
 //            mongo.close();
-        });
+            });
+        } else {
+
+        }
+//        mongo.connect(function(){
+//            mongo.save(data);
+//            console.log(data);
+////            mongo.close();
+//        });
     };
 }
