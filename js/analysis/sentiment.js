@@ -16,7 +16,8 @@ function TMSentimentHandleStory(entries)
 
         // Save story to mongo
         mongo.save(story)
-    }
+    });
+
     // Wait for 100ms then run again
     setTimeout(TMSentimentRunner, 100);
 }
