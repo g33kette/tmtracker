@@ -22,7 +22,7 @@ function MongoDB()
     this.save = function(obj)
     {
         if(!self.collection) throw "Not yet connected";
-        self.collection.save(obj);
+        self.collection.save(obj, function(err, result){});
     };
 
     this.find = function(obj, cb)
