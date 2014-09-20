@@ -57,6 +57,19 @@ function MongoDB()
         this.resetCollection();
     };
 
+    this.aggregate = function(obj, cb, overrideCollection)
+    {
+        if(typeof overrideCollection != "undefined")
+        {
+            this.setCollection(overrideCollection);
+        }
+        this.collection.aggregate(obj, function(err, results)
+        {
+            cb(results);
+        });
+        this.resetCollection();
+    };
+
     this.close = function()
     {
         this.db.close();

@@ -11,7 +11,14 @@ function AlerterRunner()
         "timestamp_ms":    {$gt: (new Date().getTime()) - (txtconfig.interval * 60 * 1000)}
     }
 
+    var average = [
+        {$match: {"timestamp_ms": {$gt: (new Date().getTime()) - (txtconfig.interval * 60 * 1000)}}},
+        {$group: {_id: "", avgScore: {$avg: "$sentiment.score"}}} 
+    ];
+
     mongo.find(emergency, AlerterRunnerEmergencyCallback);
+    mongo.aggregate(average, AlerterRunnerAverageCallback);
+
 
     setTimeout(AlerterRunner, txtconfig.interval * 60 * 1000);
 }
@@ -56,9 +63,10 @@ function AlerterRunnerEmergencyCallback(data)
     }
 }
 
-function AlerterRunnerTrendingCallback()
+function AlerterRunnerAverageCallback(data)
 {
     var txtconfig = JSON.parse(fs.readFileSync('./config/alerter.json'));
 
     // Send an SMS out here
+    console.log(data);
 }
