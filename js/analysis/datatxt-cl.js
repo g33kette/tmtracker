@@ -43,7 +43,7 @@ function DataTxtClRunner()
                 // mongo.save(story)
             });
         }).end();
-    }
+    });
 
     // Wait for 100ms then run again
     setTimeout(DataTxtClRunner, 100);

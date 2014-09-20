@@ -4,7 +4,7 @@ var sentiment = require('sentiment');
 function TMSentimentRunner()
 {
     // Get stories from mongo
-    mongo.find({sentiment: {$exists: false}}, TMSentimentHandleStory);
+//    mongo.find({sentiment: {$exists: false}}, TMSentimentHandleStory);
 }
 
 function TMSentimentHandleStory(entries)
@@ -15,7 +15,7 @@ function TMSentimentHandleStory(entries)
         story.sentiment = sentiment(story.text)
 
         // Save story to mongo
-        mongo.save(story)
+//        mongo.save(story)
     });
 
     // Wait for 100ms then run again
