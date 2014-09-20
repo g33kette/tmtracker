@@ -12,25 +12,49 @@ function MongoDB()
             {
                 if(err) throw err;
                 self.db = db;
-                self.collection = db.collection("tmtracker");
+                self.setCollection("tmtracker");
                 callback();
             }
         );
     };
 
-    this.save = function(obj)
+    this.setCollection = function(collectionName)
     {
-        if(!self.collection) throw "Not yet connected";
-        self.collection.save(obj, function(err, result){});
+        if(collectionName == this.lastCollection)
+        {
+            return;
+        }
+        this.lastCollection = collectionName;
+        this.collection = self.db.collection(collectionName);
     };
 
-    this.find = function(obj, cb)
+    this.resetCollection = function()
     {
-        if(!self.collection) throw "Not yet connected";
-        self.collection.find(obj).toArray(function(err, results)
+        this.setCollection("tmtracker");
+    };
+
+    this.save = function(obj, overrideCollection)
+    {
+        if(typeof overrideCollection != "undefined")
+        {
+            this.setCollection(overrideCollection);
+        }
+
+        this.collection.save(obj, function(err, result){});
+        this.resetCollection();
+    };
+
+    this.find = function(obj, cb, overrideCollection)
+    {
+        if(typeof overrideCollection != "undefined")
+        {
+            this.setCollection(overrideCollection);
+        }
+        this.collection.find(obj).toArray(function(err, results)
         {
             cb(results);
         });
+        this.resetCollection();
     };
 
     this.close = function()
