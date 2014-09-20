@@ -1,13 +1,21 @@
 // Sentiment code lives in here
 var sentiment = require('sentiment');
 
-function TMSentiment(story)
+function TMSentimentRunner()
 {
-    this.story = story;
-}
+    // Get stories from mongo
+    // var entries = mongo.find({sentiment: {$exists: false}})
 
-TMSentiment.prototype.getSentiment = function() {
-    story.sentiment = sentiment(story.text);
-}
+    // Iterate the stories
+    entries.foreach(function(story) {
+        // Add sentiment
+        story.sentiment = sentiment(story.text)
 
-module.exports = TMSentiment;
+        // Save story to mongo
+        // mongo.save(story)
+    }
+
+    // Wait for 100ms then run again
+    setTimeout(TMSentimentRunner, 100);
+}
+setTimeout(TMSentimentRunner, 100);
