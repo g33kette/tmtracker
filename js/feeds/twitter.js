@@ -15,7 +15,7 @@ function Twitter() {
             stream.on('data', function(data) {
                 //console.log(util.inspect(data));
                 console.log(data.text);
-                //stream.destroy();
+                stream.destroy();
             });
             //setTimeout(stream.destroy, 5000);
         });
