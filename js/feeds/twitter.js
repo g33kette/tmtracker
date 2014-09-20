@@ -49,7 +49,7 @@ function Twitter(){
             save({
                 'url': 'https://twitter.com/' + tweet.user.screen_name + '/status/' + tweet.id_str,
                 'text': tweet.text,
-                'timestamp_ms': tweet.timestamp_ms,
+                'timestamp_ms': parseInt(tweet.timestamp_ms),
                 'twitter_id': tweet.id,
                 'source': 'twitter',
                 'twitter_retweet_count': tweet.retweet_count
