@@ -1,3 +1,4 @@
 node_modules
 .idea/
 config/twitter.json
+config/guardian.json
