@@ -1,6 +1,6 @@
 // Twitter fetch code lives in here
-var tw = new Twitter();
-tw.stream('kitten');
+//call twitterObj.stream(string) to search when ready
+
 function Twitter(){
     var fs = require('fs'),
         util = require('util'),
@@ -63,3 +63,5 @@ function Twitter(){
 
     };
 }
+exports.name = Twitter;
+module.exports = new Twitter();
