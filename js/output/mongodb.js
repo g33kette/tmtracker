@@ -1,4 +1,3 @@
-
 function MongoDB()
 {
     var self = this;
@@ -41,12 +40,3 @@ function MongoDB()
  
 }
 module.exports = new MongoDB();
-
-/*
-var mongoTest = new MONGODB();
-mongoTest.connect(function()
-{
-    mongoTest.save({thisItem: "is a test"});
-    mongoTest.find({a:2}, function(result){ console.log('got result', result); });
-});
-*/
