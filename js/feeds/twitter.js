@@ -28,13 +28,18 @@ function Twitter(){
                 'text': tweet.text,
                 'timestamp_ms': tweet.timestamp_ms
             };
+            mongo.connect(function(){
+                mongo.save(data);
+                console.log(data);
+//            mongo.close();
+            });
         } else {
 
         }
-        mongo.connect(function(){
-            mongo.save(data);
-            console.log(data);
-//            mongo.close();
-        });
+//        mongo.connect(function(){
+//            mongo.save(data);
+//            console.log(data);
+////            mongo.close();
+//        });
     };
 }
