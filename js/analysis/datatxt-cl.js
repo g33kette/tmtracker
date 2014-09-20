@@ -5,7 +5,7 @@ var fs = require('fs');
 function DataTxtClRunner()
 {
     // Load in config for datatxt
-    var txtconfig = JSON.parse(fs.readFileSync('../../config/datatxt.json'));
+    var txtconfig = JSON.parse(fs.readFileSync('./config/datatxt.json'));
 
     // Get stories from mongo
     // var entries = mongo.find({sentiment: {$exists: true}, datatxt_cl: {$exists: false}, datatxt_cl_processing {$exists: false}})
