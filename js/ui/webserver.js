@@ -42,7 +42,7 @@ function UI(twitter, guardian)
             + '<form method="get" action="/">'
             + '<input type="text" name="searchFor" value="' + currentSearch + '"> Enter string to search for like '
             + '<a href="?searchFor=kittens">kittens</a>, '
-            + '<a href="?searchFor=hackference">hackference</a> or'
+            + '<a href="?searchFor=hackference">hackference</a> or '
             + '<a href="?searchFor=paypal">PayPal</a>'
             + '<br />'
             + '<input type="submit" value="Click Meh!">'
@@ -53,9 +53,9 @@ function UI(twitter, guardian)
 
     app.get('/minutes', function(req, res) {
         mongo.distinct('datatxt_nex.annotations.title', function(related_data) {
-        var find = {};
+        var find = {"timestamp_iso": {$exists: true}};
         if(req.query.relatedTerm) {
-            find = {"datatxt_nex.annotations.title": req.query.relatedTerm};
+            find = {"timestamp_iso": {$exists: true}, "datatxt_nex.annotations.title": req.query.relatedTerm};
         }
         mongo.aggregate([
             {$match: find},
