@@ -39,6 +39,15 @@ function Twitter(){
     var save = function(data){
         mongo.connect(function(){
             mongo.save(data);
+            mongo.find({'filter': filter, 'source': 'twitterrest'}, function (results) {
+                var twitterest;
+                if (results.length) {
+                    twitterest = results[0];
+                } else {
+                    twitterest = {'filter': filter, 'source': 'twitterrest', 'max_id': data.source_id};
+                }
+                mongo.save(twitterest,'filters');
+            }, 'filters');
             console.log('twitter ' + data._id);
         });
     };

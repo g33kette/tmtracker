@@ -26,12 +26,12 @@ function Guardian(){
     this.stream =    function(filter){
         var config = JSON.parse(fs.readFileSync('./config/guardian.json'));
         mongo.connect(function() {
-            mongo.find({'filter': filter}, function (results) {
+            mongo.find({'filter': filter, 'source': 'guardian'}, function (results) {
                 var filter_obj;
                 if (results.length) {
                     filter_obj = results[0];
                 } else {
-                    filter_obj = {'filter': filter, 'start_time': start_time, 'page' : page};
+                    filter_obj = {'filter': filter, 'start_time': start_time, 'page' : page, 'source': 'guardian'};
                 }
                 var options = {
                     host: 'content.guardianapis.com',

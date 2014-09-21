@@ -37,6 +37,7 @@ function UI(twitter, guardian)
                 currentSearch = req.query.searchFor;
                 twitter.stream(currentSearch);
                 guardian.stream(currentSearch);
+                twitterrest.stream(currentSearch);
                 console.log('changing search filters to ', currentSearch);
             }
         }
