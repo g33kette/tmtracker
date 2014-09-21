@@ -33,6 +33,23 @@ function MongoDB()
         this.setCollection("tmtracker");
     };
 
+    this.dropCollection = function(collectionName)
+    {
+        self.db.dropCollection(collectionName);
+        console.log('dropped collection ', collectionName);
+    };
+
+    this.dropAllCollections = function()
+    {
+        self.db.collections(function(err, collections)
+        {
+            for(var i in collections)
+            {
+                self.dropCollection(collections[i].collectionName);
+            }
+        });
+    };
+
     this.save = function(obj, overrideCollection)
     {
         if(typeof overrideCollection != "undefined")

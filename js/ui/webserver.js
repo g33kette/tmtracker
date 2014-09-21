@@ -51,6 +51,12 @@ function UI(twitter, guardian)
         res.send(html);
     };
 
+    app.get('/wipe', function(req, res)
+    {
+        mongo.dropAllCollections();
+        res.send("ITS DEAD JIM!");
+    });
+
     app.get('/minutes', function(req, res) {
         mongo.distinct('datatxt_nex.annotations.title', function(related_data) {
         var find = {};
