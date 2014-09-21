@@ -50,13 +50,14 @@ function Twitter(){
                 'url': 'https://twitter.com/' + tweet.user.screen_name + '/status/' + tweet.id_str,
                 'text': tweet.text,
                 'timestamp_ms': parseInt(tweet.timestamp_ms),
+                'timestamp_iso': new Date(),
                 'source_id': tweet.id,
                 'source': 'twitter',
                 'twitter_retweet_count': tweet.retweet_count
             });
         } else {
             mongo.connect(function() {
-                mongo.find({'source': 'twitter', 'source_id': tweet.retweeted_status.id}, function(data){
+/*                mongo.find({'source': 'twitter', 'source_id': tweet.retweeted_status.id}, function(data){
                         if (typeof data != 'object' || !data.length) {
                             tweet = tweet.retweeted_status;
                             save({
@@ -72,7 +73,7 @@ function Twitter(){
                             save(data[0]);
                         }
                 }, { limit : 1 });
-
+*/
             });
         }
 

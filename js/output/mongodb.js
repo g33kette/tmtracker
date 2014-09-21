@@ -70,6 +70,19 @@ function MongoDB()
         this.resetCollection();
     };
 
+    this.distinct = function(obj, cb, overrideCollection)
+    {
+        if(typeof overrideCollection != "undefined")
+        {
+            this.setCollection(overrideCollection);
+        }
+        this.collection.distinct(obj, function(err, results)
+        {
+            cb(results);
+        });
+        this.resetCollection();
+    };
+
     this.close = function()
     {
         this.db.close();

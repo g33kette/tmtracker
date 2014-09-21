@@ -65,6 +65,7 @@ function AlerterRunnerEmergencyCallback(data)
 
 function AlerterRunnerAverageCallback(data)
 {
+    if (data.length) {
     var txtconfig = JSON.parse(fs.readFileSync('./config/alerter.json'));
     if (data[0].avgScore < txtconfig.low_average_threshold) {
         console.log("SENDING SMS");
@@ -100,5 +101,6 @@ function AlerterRunnerAverageCallback(data)
         });
         post_req.write(query_string);
         post_req.end();
+    }
     }
 }
