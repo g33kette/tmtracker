@@ -2,7 +2,7 @@ var mongo = require('../output/mongodb.js');
 mongo.connect(function(){});
 
 //basic webserver
-function UI(twitter)
+function UI(twitter, guardian)
 {
     var self = this;
     var express = require('express');
@@ -29,6 +29,7 @@ function UI(twitter)
                 //twitter.destroy();
                 currentSearch = req.query.searchFor;
                 twitter.stream(currentSearch);
+                guardian.stream(currentSearch);
                 console.log('changing search filters to ', currentSearch);
             }
         }

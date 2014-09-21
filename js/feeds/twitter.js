@@ -57,7 +57,7 @@ function Twitter(){
             });
         } else {
             mongo.connect(function() {
-/*                mongo.find({'source': 'twitter', 'source_id': tweet.retweeted_status.id}, function(data){
+                mongo.find({'source': 'twitter', 'source_id': tweet.retweeted_status.id}, function(data){
                         if (typeof data != 'object' || !data.length) {
                             tweet = tweet.retweeted_status;
                             save({
@@ -72,8 +72,8 @@ function Twitter(){
                             data[0].twitter_retweet_count = tweet.retweeted_status.retweet_count;
                             save(data[0]);
                         }
-                }, { limit : 1 });
-*/
+                });
+
             });
         }
 
