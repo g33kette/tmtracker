@@ -18,6 +18,13 @@ function UI(twitter, guardian)
         console.log('Server listening on port %d', server.address().port);
     });
 
+    this.getMenuBarHTML = function()
+    {
+        var html = '<style>body{ margin-top: 20px; } .menu { padding: 5px 0; background: #333; color: #ddd; margin: 0; position: fixed; top: 0; left: 0; width: 100%} .menu li{float: left; padding-left: 20px; list-style-type: none}</style>'
+            + '<ul class="menu"><li><a href="/">Change Filter</a></li><li><a href="/minutes">View Pretties</a></li></ul>';
+        return html;
+    };
+
     //todo: templates. for now, raw powa of html! wooo
     this.showIndex = function(req, res)
     {
@@ -39,6 +46,7 @@ function UI(twitter, guardian)
         }
 
         var html = '<!doctype html><html><head><link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" /></head><body><div class="container"><h1>TMTracker</h1>'
+            + this.getMenuBarHTML()
             + '<form method="get" action="/">'
             + '<input type="text" name="searchFor" value="' + currentSearch + '"> Enter string to search for like '
             + '<a href="?searchFor=kittens">kittens</a>, '
@@ -91,6 +99,7 @@ function UI(twitter, guardian)
             html += '<style>.domain {fill: none; stroke: black; stroke-width: 1} #related_terms { float: right;width: 300px; height: 500px; overflow: scroll; }</style>';
             html += '</head>';
             html += '<body>';
+            html += self.getMenuBarHTML();
             html += '<div id="demo"></div>';
             html += '<div id="related_terms"><h3>Related Terms</h3>';
             html += '<a href="/minutes">(( Everything ))</a><br />';
