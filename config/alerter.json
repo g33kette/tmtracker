@@ -1,7 +1,7 @@
 {
-    "low_emergency_threshold": -3,
-    "low_average_threshold": -1,
-    "interval": 10,
+    "low_emergency_threshold": -7,
+    "low_average_threshold": -2,
+    "interval": 240,
     "sender": "+441527962136",
     "recipient": "+447969442641",
     "twilio_account": "AC4fa1c40eb6e1c26c2bfc0745d48688cc",

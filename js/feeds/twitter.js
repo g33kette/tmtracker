@@ -50,6 +50,7 @@ function Twitter(){
                 'url': 'https://twitter.com/' + tweet.user.screen_name + '/status/' + tweet.id_str,
                 'text': tweet.text,
                 'timestamp_ms': parseInt(tweet.timestamp_ms),
+                'timestamp_iso': new Date(),
                 'source_id': tweet.id,
                 'source': 'twitter',
                 'twitter_retweet_count': tweet.retweet_count
@@ -71,7 +72,7 @@ function Twitter(){
                             data[0].twitter_retweet_count = tweet.retweeted_status.retweet_count;
                             save(data[0]);
                         }
-                }, { limit : 1 });
+                });
 
             });
         }
