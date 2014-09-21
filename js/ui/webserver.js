@@ -60,7 +60,7 @@ function UI(twitter, guardian)
         mongo.aggregate([
             {$match: find},
 	    {$project: {
-	        minutes: {$minute: "$timestamp_iso"}, 
+	        minutes: {$minute: "$timestamp_iso"},
 	        hour: {$hour: "$timestamp_iso"}, 
 	        day: {$dayOfMonth: "$timestamp_iso"}, 
 	        month: {$month: "$timestamp_iso"}, 
@@ -68,7 +68,7 @@ function UI(twitter, guardian)
 	        score: "$sentiment.score"
 	    }},
 	    {$group: {
-	        _id: {year: "$year", month: "$month", day: "$day", hour: "$hour", minute: "$minutes"}, 
+	        _id: {year: "$year", month: "$month", day: "$day", hour: "$hour", minute: "$minutes"},
 	        score: {$avg: "$score"}, 
 	        count: {$sum: 1}
 	    }},
