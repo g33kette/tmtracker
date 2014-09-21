@@ -67,9 +67,9 @@ function UI(twitter, guardian)
 
     app.get('/minutes', function(req, res) {
         mongo.distinct('datatxt_nex.annotations.title', function(related_data) {
-        var find = {};
+        var find = {"timestamp_iso": {$exists: true}};
         if(req.query.relatedTerm) {
-            find = {"datatxt_nex.annotations.title": req.query.relatedTerm};
+            find = {"timestamp_iso": {$exists: true}, "datatxt_nex.annotations.title": req.query.relatedTerm};
         }
         mongo.aggregate([
             {$match: find},
