@@ -20,7 +20,7 @@ function UI(twitter, guardian)
 
     this.getMenuBarHTML = function()
     {
-        var html = '<style>body{ margin-top: 20px; } .menu { padding: 5px 0; background: #333; color: #ddd; margin: 0; position: fixed; top: 0; left: 0; width: 100%} .menu li{float: left; padding-left: 20px; list-style-type: none}</style>'
+        var html = '<style>body{ margin-top: 30px; } .menu { padding: 5px 0; background: #333; color: #ddd; margin: 0; position: fixed; top: 0; left: 0; width: 100%} .menu li{float: left; padding-left: 20px; list-style-type: none}</style>'
             + '<ul class="menu"><li><a href="/">Change Filter</a></li><li><a href="/minutes">View Pretties</a></li></ul>';
         return html;
     };
