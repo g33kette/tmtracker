@@ -45,27 +45,26 @@ function AlerterRunnerEmergencyCallback(data)
         };
 
         // Send the response to the classification server
-        var post_req = http.request(options, function(res) {
-            var str = '';
-
-            // Handle chunks of data coming back
-            res.on('data', function (chunk) {
-                str += chunk;
-            });
-
-            // Handle when we have all data back
-            res.on('end', function() {
-                console.log(str);
-            });
-        });
-        post_req.write(query_string);
-        post_req.end();
+        //var post_req = http.request(options, function(res) {
+        //    var str = '';
+        //
+        //    // Handle chunks of data coming back
+        //    res.on('data', function (chunk) {
+        //        str += chunk;
+        //    });
+        //
+        //    // Handle when we have all data back
+        //    res.on('end', function() {
+        //        console.log(str);
+        //    });
+        //});
+        //post_req.write(query_string);
+        //post_req.end();
     }
 }
 
 function AlerterRunnerAverageCallback(data)
 {
-console.log(data);
     if (data.length) {
     var txtconfig = JSON.parse(fs.readFileSync('./config/alerter.json'));
     if (data[0].avgScore < txtconfig.low_average_threshold) {
@@ -87,21 +86,21 @@ console.log(data);
         };
 
         // Send the response to the classification server
-        var post_req = http.request(options, function(res) {
-            var str = '';
-
-            // Handle chunks of data coming back
-            res.on('data', function (chunk) {
-                str += chunk;
-            });
-
-            // Handle when we have all data back
-            res.on('end', function() {
-                console.log(str);
-            });
-        });
-        post_req.write(query_string);
-        post_req.end();
+        //var post_req = http.request(options, function(res) {
+        //    var str = '';
+        //
+        //    // Handle chunks of data coming back
+        //    res.on('data', function (chunk) {
+        //        str += chunk;
+        //    });
+        //
+        //    // Handle when we have all data back
+        //    res.on('end', function() {
+        //        console.log(str);
+        //    });
+        //});
+        //post_req.write(query_string);
+        //post_req.end();
     }
     }
 }

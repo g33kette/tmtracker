@@ -82,7 +82,7 @@ function MongoDB()
         }
         this.collection.aggregate(obj, function(err, results)
         {
-            if (typeof err != 'null') console.log(err);
+            if (err != null) console.log(err);
             cb(results);
         });
         this.resetCollection();

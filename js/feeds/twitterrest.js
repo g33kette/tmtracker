@@ -30,7 +30,6 @@ function TwitterRest(){
                 } else {
                     filter_obj = {'filter': filter, 'source': 'twitterrest'};
                 }
-                console.log(params);
                 twit.search(filter_obj.filter, params, function (data) {
                     if (typeof data.search_metadata != 'undefined') {
                         filter_obj.since_id = data.search_metadata.max_id_str;

@@ -38,8 +38,6 @@ function DataTxtNexRunnerCallback(entries)
             path: path_string
         };
 
-console.log(options);
-
         // Send the response to the classification server
         http.request(options, function(res) {
             var str = '';

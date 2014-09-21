@@ -74,7 +74,6 @@ function UI(twitter, guardian, twitterrest)
         }
         if(req.query.source) {
             find.source = req.query.source;
-            console.log(find);
         }
         mongo.aggregate([
             {$match: find},
