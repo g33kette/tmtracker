@@ -46,6 +46,9 @@ function TwitterRest(){
                         }
                     } else {
                         console.log('twitterrest connection error', data);
+                        setTimeout(function () {
+                            self.stream(filter);
+                        }, 100000);
                     }
                 });
             }, 'filters');
