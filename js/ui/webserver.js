@@ -2,7 +2,7 @@ var mongo = require('../output/mongodb.js');
 mongo.connect(function(){});
 
 //basic webserver
-function UI(twitter)
+function UI(twitter, guardian)
 {
     var self = this;
     var express = require('express');
@@ -29,6 +29,7 @@ function UI(twitter)
                 //twitter.destroy();
                 currentSearch = req.query.searchFor;
                 twitter.stream(currentSearch);
+                guardian.stream(currentSearch);
                 console.log('changing search filters to ', currentSearch);
             }
         }
@@ -41,7 +42,7 @@ function UI(twitter)
             + '<form method="get" action="/">'
             + '<input type="text" name="searchFor" value="' + currentSearch + '"> Enter string to search for like '
             + '<a href="?searchFor=kittens">kittens</a>, '
-            + '<a href="?searchFor=hackference">hackference</a> or'
+            + '<a href="?searchFor=hackference">hackference</a> or '
             + '<a href="?searchFor=paypal">PayPal</a>'
             + '<br />'
             + '<input type="submit" value="Click Meh!">'
@@ -59,7 +60,7 @@ function UI(twitter)
         mongo.aggregate([
             {$match: find},
 	    {$project: {
-	        minutes: {$minute: "$timestamp_iso"}, 
+	        minutes: {$minute: "$timestamp_iso"},
 	        hour: {$hour: "$timestamp_iso"}, 
 	        day: {$dayOfMonth: "$timestamp_iso"}, 
 	        month: {$month: "$timestamp_iso"}, 
@@ -67,7 +68,7 @@ function UI(twitter)
 	        score: "$sentiment.score"
 	    }},
 	    {$group: {
-	        _id: {year: "$year", month: "$month", day: "$day", hour: "$hour", minute: "$minutes"}, 
+	        _id: {year: "$year", month: "$month", day: "$day", hour: "$hour", minute: "$minutes"},
 	        score: {$avg: "$score"}, 
 	        count: {$sum: 1}
 	    }},
