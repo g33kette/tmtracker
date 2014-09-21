@@ -7,7 +7,8 @@ function Twitter(){
         util = require('util'),
         twitter = require('twitter'),
         config = JSON.parse(fs.readFileSync('config/twitter.json')),
-        mongo = require('../output/mongodb.js');
+        mongo = require('../output/mongodb.js'),
+        tweet_filter = '';
 
 
     var twit = new twitter(config);
@@ -15,7 +16,7 @@ function Twitter(){
     this.stream = function(filter)
     {
         this.destroy();
-
+        tweet_filter = filter;
         twit.stream('statuses/filter', {'track' : filter}, function(stream) {
             stream.on('data', function(data) {
                 process(data);
@@ -39,12 +40,12 @@ function Twitter(){
     var save = function(data){
         mongo.connect(function(){
             mongo.save(data);
-            mongo.find({'filter': filter, 'source': 'twitterrest'}, function (results) {
+            mongo.find({'filter': tweet_filter, 'source': 'twitterrest'}, function (results) {
                 var twitterest;
                 if (results.length) {
                     twitterest = results[0];
                 } else {
-                    twitterest = {'filter': filter, 'source': 'twitterrest', 'max_id': data.source_id};
+                    twitterest = {'filter': tweet_filter, 'source': 'twitterrest', 'max_id': data.source_id};
                 }
                 mongo.save(twitterest,'filters');
             }, 'filters');

@@ -30,6 +30,7 @@ function TwitterRest(){
                 } else {
                     filter_obj = {'filter': filter, 'source': 'twitterrest'};
                 }
+                console.log(params);
                 twit.search(filter_obj.filter, params, function (data) {
                     if (typeof data.search_metadata != 'undefined') {
                         filter_obj.since_id = data.search_metadata.max_id_str;
@@ -39,7 +40,7 @@ function TwitterRest(){
                                 process(data.statuses[i]);
                             }
                         }
-                        if (params.since_id < params.max_id) {
+                        if (typeof params.since_id != 'undefined' && (typeof params.max_id == 'undefined' || params.since_id < params.max_id)) {
                             setTimeout(function () {
                                 self.stream(filter);
                             }, 1000);

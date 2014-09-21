@@ -2,7 +2,7 @@ var mongo = require('../output/mongodb.js');
 mongo.connect(function(){});
 
 //basic webserver
-function UI(twitter, guardian)
+function UI(twitter, guardian, twitterrest)
 {
     var self = this;
     var express = require('express');
