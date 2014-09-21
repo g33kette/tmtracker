@@ -80,6 +80,7 @@ function Guardian(){
                         'text' : data.results[i].webTitle,
                         'url' : data.results[i].webUrl,
                         'timestamp_ms': new Date(data.results[i].webPublicationDate).getTime(),
+                        'timestamp_iso': new Date(data.results[i].webPublicationDate),
                         'source_id': data.results[i].id,
                         'source': 'guardian'
                     });

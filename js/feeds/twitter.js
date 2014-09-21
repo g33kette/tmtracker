@@ -50,7 +50,7 @@ function Twitter(){
                 'url': 'https://twitter.com/' + tweet.user.screen_name + '/status/' + tweet.id_str,
                 'text': tweet.text,
                 'timestamp_ms': parseInt(tweet.timestamp_ms),
-                'timestamp_iso': new Date(),
+                'timestamp_iso': new Date(parseInt(tweet.timestamp_ms)),
                 'source_id': tweet.id,
                 'source': 'twitter',
                 'twitter_retweet_count': tweet.retweet_count
