@@ -65,6 +65,7 @@ function MongoDB()
         }
         this.collection.aggregate(obj, function(err, results)
         {
+            console.log(err);
             cb(results);
         });
         this.resetCollection();
