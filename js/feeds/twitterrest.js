@@ -7,13 +7,15 @@ function TwitterRest(){
         util = require('util'),
         twitter = require('twitter'),
         config = JSON.parse(fs.readFileSync('config/twitter.json')),
-        mongo = require('../output/mongodb.js');
+        mongo = require('../output/mongodb.js'),
+        search_filter;
 
 
     var twit = new twitter(config);
 
     this.stream = function(filter)
     {
+        search_filter = filter;
         mongo.connect(function() {
             mongo.find({'filter': filter, 'source': 'twitterrest'}, function (results) {
                 var filter_obj;
@@ -57,6 +59,7 @@ function TwitterRest(){
 
     var save = function(data){
         mongo.connect(function(){
+            data.filter = search_filter;
             mongo.save(data);
             console.log('twitterrest ' + data._id);
         });

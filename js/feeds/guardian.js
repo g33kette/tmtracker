@@ -11,7 +11,8 @@ function Guardian(){
         mongo = require('../output/mongodb.js'),
         start_time = 1396310400000, // 1st April 2014
         page = 1,
-        total_pages;
+        total_pages,
+        search_filter;
 
     function dateFromMicro(time) {
         var date;
@@ -25,6 +26,7 @@ function Guardian(){
 
     this.stream =    function(filter){
         var config = JSON.parse(fs.readFileSync('./config/guardian.json'));
+        search_filter = filter;
         mongo.connect(function() {
             mongo.find({'filter': filter, 'source': 'guardian'}, function (results) {
                 var filter_obj;
@@ -91,6 +93,7 @@ function Guardian(){
 
     var save = function(data){
         mongo.connect(function(){
+            data.filter = search_filter;
             mongo.save(data);
             console.log('guardian ' + data._id);
         });

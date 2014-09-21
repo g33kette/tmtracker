@@ -61,13 +61,16 @@ function MongoDB()
         this.resetCollection();
     };
 
-    this.find = function(obj, cb, overrideCollection)
+    this.find = function(obj, cb, overrideCollection, params)
     {
-        if(typeof overrideCollection != "undefined")
+        if(typeof overrideCollection != "undefined" && overrideCollection != null)
         {
             this.setCollection(overrideCollection);
         }
-        this.collection.find(obj).toArray(function(err, results)
+        if (typeof params == 'undefined') {
+            params = {};
+        }
+        this.collection.find(obj, params).toArray(function(err, results)
         {
             cb(results);
         });
