@@ -26,10 +26,12 @@ function DataTxtClRunnerCallback(entries)
         story.datatxt_cl_processing = true;
         mongo.save(story)
 
+	var path_string = '/datatxt/cl/v1?$app_id=' + txtconfig.app_id + '&$app_key=' + txtconfig.app_key + '&model=648b9f89-b869-4639-9386-5493bfb7a84d&text=' + encodeURIComponent(story.text);
+
         // Set up some URL call parameters
         var options = {
             host: txtconfig.url,
-            path: '/datatxt/cl/v1?$app_id=' + txtconfig.app_id + '&$app_key=' + txtconfig.app_key + '&model=648b9f89-b869-4639-9386-5493bfb7a84d&text=' + encodeURIComponent(story.text)
+            path: path_string
         };
 
         // Send the response to the classification server

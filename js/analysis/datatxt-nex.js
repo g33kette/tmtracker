@@ -25,11 +25,20 @@ function DataTxtNexRunnerCallback(entries)
         story.datatxt_nex_processing = true;
         mongo.save(story)
 
+	var path_string = '/datatxt/nex/v1/?min_confidence=0.6&social.parse_hashtag=False&include=image%2Cabstract%2Ctypes%2Ccategories%2Clod&country=-1&$app_id=' + txtconfig.app_id + '&$app_key=' + txtconfig.app_key;
+        if (story.source == 'guardian') {
+            path_string += '&url=' + encodeURIComponent(story.url)
+        } else {
+            path_string += '&text=' + encodeURIComponent(story.text)
+        }
+
         // Set up some URL call parameters
         var options = {
             host: txtconfig.url,
-            path: '/datatxt/nex/v1/?min_confidence=0.6&social.parse_hashtag=False&text=' + encodeURIComponent(story.text) + '&include=image%2Cabstract%2Ctypes%2Ccategories%2Clod&country=-1&$app_id=' + txtconfig.app_id + '&$app_key=' + txtconfig.app_key
+            path: path_string
         };
+
+console.log(options);
 
         // Send the response to the classification server
         http.request(options, function(res) {
