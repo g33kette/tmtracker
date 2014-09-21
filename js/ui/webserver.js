@@ -38,7 +38,7 @@ function UI(twitter, guardian)
             //do nothing, default is nothing
         }
 
-        var html = '<h1>TMTracker</h1>'
+        var html = '<!doctype html><html><head><link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" /></head><body><div class="container"><h1>TMTracker</h1>'
             + '<form method="get" action="/">'
             + '<input type="text" name="searchFor" value="' + currentSearch + '"> Enter string to search for like '
             + '<a href="?searchFor=kittens">kittens</a>, '
@@ -46,7 +46,7 @@ function UI(twitter, guardian)
             + '<a href="?searchFor=paypal">PayPal</a>'
             + '<br />'
             + '<input type="submit" value="Click Meh!">'
-            + '</form>';
+            + '</form></div></body></html>';
 
         res.send(html);
     };
@@ -81,7 +81,8 @@ function UI(twitter, guardian)
             html += '<html>';
             html += '<head>';
             html += '<meta charset="utf-8">';
-            html += '<style>body { font-family: arial, sans-serif; } .domain {fill: none; stroke: black; stroke-width: 1} #related_terms { float: right;width: 300px; height: 500px; overflow: scroll; }</style>';
+            html += '<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" />';
+            html += '<style>.domain {fill: none; stroke: black; stroke-width: 1} #related_terms { float: right;width: 300px; height: 500px; overflow: scroll; }</style>';
             html += '</head>';
             html += '<body>';
             html += '<div id="demo"></div>';
@@ -164,7 +165,7 @@ svg.append("text")\
         .attr("text-anchor", "middle")  \
         .style("font-size", "16px") \
         .style("text-decoration", "underline")  \
-        .text("Sentiments on scotland");\
+        .text("Sentiments on kitten");\
 \
   svg.append("path")\
       .datum(JSONData)\

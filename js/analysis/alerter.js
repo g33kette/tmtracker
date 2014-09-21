@@ -65,6 +65,7 @@ function AlerterRunnerEmergencyCallback(data)
 
 function AlerterRunnerAverageCallback(data)
 {
+console.log(data);
     if (data.length) {
     var txtconfig = JSON.parse(fs.readFileSync('./config/alerter.json'));
     if (data[0].avgScore < txtconfig.low_average_threshold) {
