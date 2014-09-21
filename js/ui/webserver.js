@@ -72,6 +72,10 @@ function UI(twitter, guardian, twitterrest)
         if(req.query.relatedTerm) {
             find = {"timestamp_iso": {$exists: true}, "datatxt_nex.annotations.title": req.query.relatedTerm};
         }
+        if(req.query.source) {
+            find.source = req.query.source;
+            console.log(find);
+        }
         mongo.aggregate([
             {$match: find},
 	    {$project: {
@@ -91,21 +95,29 @@ function UI(twitter, guardian, twitterrest)
                 "_id": 1
             }}
 	], function(data) {
+            var sourceQuery = '';
+            if (req.query.source) {
+                sourceQuery = 'source='+req.query.source+'&';
+            }
             var html = '';
             html += '<!DOCTYPE html>';
             html += '<html>';
             html += '<head>';
             html += '<meta charset="utf-8">';
             html += '<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" />';
-            html += '<style>.domain {fill: none; stroke: black; stroke-width: 1} #related_terms { float: right;width: 300px; height: 500px; overflow: scroll; }</style>';
+            html += '<style>.domain {fill: none; stroke: black; stroke-width: 1} #related_terms { float: right;width: 300px; height: 500px; overflow: scroll; } #sources { float: right;width: 300px; }</style>';
             html += '</head>';
             html += '<body>';
             html += self.getMenuBarHTML();
             html += '<div id="demo"></div>';
-            html += '<div id="related_terms"><h3>Related Terms</h3>';
+            html += '<div id="sources"><h3>Sources</h3>';
             html += '<a href="/minutes">(( Everything ))</a><br />';
+            html += '<a href="/minutes?source=twitter">Twitter</a><br />';
+            html += '<a href="/minutes?source=guardian">Guardian</a><br />';
+            html += '<div id="related_terms"><h3>Related Terms</h3>';
+            html += '<a href="/minutes?'+sourceQuery+'">(( Everything ))</a><br />';
             for (var i = 0; i < related_data.length; i++) {
-                html += '<a href="/minutes?relatedTerm=' + related_data[i] + '">' + related_data[i] + "</a><br />";
+                html += '<a href="/minutes?'+sourceQuery+'relatedTerm=' + related_data[i] + '">' + related_data[i] + "</a><br />";
             }
             html += '</div>';
             html += '<script src="http://d3js.org/d3.v3.js"></script>';

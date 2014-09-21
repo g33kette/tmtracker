@@ -67,7 +67,7 @@ function TwitterRest(){
             'timestamp_ms': new Date(tweet.created_at).getTime(),
             'timestamp_iso': new Date(tweet.created_at),
             'source_id': tweet.id,
-            'source': 'twitterrest',
+            'source': 'twitter',
             'twitter_retweet_count': tweet.retweet_count
         });
     };
