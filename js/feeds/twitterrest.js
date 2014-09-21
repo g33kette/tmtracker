@@ -42,10 +42,10 @@ function TwitterRest(){
                         if (typeof params.since_id != 'undefined' && (typeof params.max_id == 'undefined' || params.since_id < params.max_id)) {
                             setTimeout(function () {
                                 self.stream(filter);
-                            }, 1000);
+                            }, 10000);
                         }
                     } else {
-                        console.log('twitter rest connection error', data);
+                        console.log('twitterrest connection error', data);
                     }
                 });
             }, 'filters');
