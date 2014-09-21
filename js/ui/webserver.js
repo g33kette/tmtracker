@@ -49,7 +49,7 @@ function UI(twitter, guardian)
             + this.getMenuBarHTML()
             + '<form method="get" action="/">'
             + '<input type="text" name="searchFor" value="' + currentSearch + '"> Enter string to search for like '
-            + '<a href="?searchFor=kittens">kittens</a>, '
+            + '<a href="?searchFor=kitten">kitten</a>, '
             + '<a href="?searchFor=hackference">hackference</a> or '
             + '<a href="?searchFor=paypal">PayPal</a>'
             + '<br />'
