@@ -8,4 +8,3 @@ It also sends out text alerts using twilio if there is a lot of negativity detec
 
 Tech: NodeJS, MongoDB, Github, Twitter API (streaming and rest), Guardian API, Sentiment node module, DataTxt API, D3.js library, Twiliio
 
-test
